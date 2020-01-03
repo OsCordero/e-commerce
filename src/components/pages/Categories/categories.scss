@@ -1,0 +1,12 @@
+.categories-header {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.categories-list {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  column-gap: 5%;
+  row-gap: 30px;
+}
