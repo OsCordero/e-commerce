@@ -1,7 +1,6 @@
 import React from 'react';
 import './category-card.scss';
 const CategoryCard = props => {
-  console.log(props);
   const { name, description } = props.category;
   return (
     <div className='category-card'>

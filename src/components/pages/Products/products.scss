@@ -12,11 +12,32 @@
   row-gap: 30px;
 }
 
+@media only screen and (max-width: 1024px) {
+  .products-list {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .products-list {
+    grid-template-columns: auto;
+  }
+  .products-content {
+    display: flex;
+    justify-content: center;
+  }
+}
 .product-card:nth-child(3n + 1):nth-last-child(-n + 3),
 .product-card:nth-child(3n + 1):nth-last-child(-n + 3) ~ .product-card {
   margin-bottom: 30px;
 }
-
+.no-match {
+  height: 80vh;
+  font-size: xx-large;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
 .search-bar {
   margin-bottom: 10px;
   display: flex;

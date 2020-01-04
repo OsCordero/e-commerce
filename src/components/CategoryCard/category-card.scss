@@ -1,4 +1,5 @@
 .category-card {
+  color: #333;
   position: relative;
   display: flex;
   padding: 10px;
@@ -15,12 +16,19 @@
   h1 {
     font-size: large;
   }
+  span {
+    color: rgb(124, 124, 124);
+  }
 }
 .category-card {
   text-align: center;
 }
 .category-card:hover {
   height: 100%;
+}
+.category-card-header h1 {
+  color: black;
+  font-weight: 600;
 }
 
 .category-card-body {

@@ -5,6 +5,7 @@
   li {
     display: flex;
     align-items: center;
+    color: white;
     height: 100%;
   }
 }
@@ -26,4 +27,18 @@
   justify-content: space-around;
   align-items: center;
   margin-left: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav-bar-items-list {
+    width: 70%;
+    margin-left: auto;
+  }
+}
+
+@media only screen and (max-width: 568px) {
+  .nav-bar-items-list {
+    width: 90%;
+    margin-left: 5%;
+  }
 }

@@ -1,0 +1,25 @@
+.review {
+  background-color: white;
+  width: 50%;
+  color: #333;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+@media only screen and (max-width: 568px) {
+  .review {
+    width: 90%;
+  }
+}
+.review-body {
+  padding: 15px 30px;
+  color: #333;
+}
+.review-user span {
+  font-weight: 700;
+}
+
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+}

@@ -21,6 +21,7 @@ const NavBar = () => {
             Categories
           </Link>
         </li>
+        <li className='item'>Log in</li>
       </ul>
     </nav>
   );

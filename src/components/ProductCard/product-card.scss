@@ -1,3 +1,4 @@
+/* eslint-disable */
 .product-card {
   width: 300px;
   background-image: radial-gradient(73% 147%, #eadfdf 59%, #ece2df 100%),
@@ -18,7 +19,7 @@
 }
 .description {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -34,9 +35,13 @@
   justify-content: space-between;
   align-items: flex-end;
 }
+.prices {
+  align-self: flex-end;
+}
 
 .old-price {
   font-size: large;
+  min-height: 20px;
   text-decoration: line-through;
   color: tomato;
 }

@@ -1,0 +1,14 @@
+.product-resume {
+  border-bottom: 1px solid #999999;
+  padding-bottom: 10px;
+}
+
+.product-reviews {
+  margin-top: 30px;
+  display: grid;
+  row-gap: 10px;
+}
+
+.review:last-child {
+  margin-bottom: 20px;
+}

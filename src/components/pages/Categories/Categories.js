@@ -15,7 +15,6 @@ export class Categories extends Component {
     });
   }
   render() {
-    console.log();
     return (
       <div className='categories'>
         <div className='categories-header'>
