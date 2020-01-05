@@ -6,7 +6,9 @@ import Home from './pages/Home/Home';
 import Products from './pages/Products/Products';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import NavBar from './NavBar/NavBar';
+import Login from './pages/Login/Login';
 import './app.scss';
+
 const App = () => {
   return (
     <div className='app'>
@@ -18,6 +20,7 @@ const App = () => {
             <Route path='/products' exact component={Products} />
             <Route path='/categories' exact component={Categories} />
             <Route path='/product/:id' exact component={ProductDetail} />
+            <Route path='/login' exact component={Login} />
           </div>
         </div>
       </Router>
