@@ -14,6 +14,7 @@ export class Categories extends Component {
       return <CategoryCard key={category.category_id} category={category} />;
     });
   }
+
   render() {
     return (
       <div className='categories'>

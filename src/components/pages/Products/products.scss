@@ -53,7 +53,10 @@
   color: rgb(167, 167, 167);
 }
 
-.search-input {
+.search-input,
+.filter-categories,
+option {
+  margin-right: 20px;
   height: 30px;
   font-size: 20px;
   border: none;
@@ -61,7 +64,10 @@
   padding: 0 20px;
   border-radius: 15px;
 }
-
-.search-input:focus {
+.filter-categories {
+  border-radius: 10px;
+}
+.search-input:focus,
+.filter-categories:focus {
   outline: none;
 }

@@ -21,7 +21,9 @@ const NavBar = () => {
             Categories
           </Link>
         </li>
-        <li className='item'>Log in</li>
+        <li className='item'>
+          <a href='#'>Log in </a>
+        </li>
       </ul>
     </nav>
   );

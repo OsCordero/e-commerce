@@ -3,6 +3,7 @@ import turing from '../apis/turing';
 export const types = {
   FETCH_PRODUCTS: 'FETCH_PRODUCTS',
   FETCH_CATEGORIES: 'FETCH_CATEGORIES',
+  FETCH_SEARCHED_PRODUCTS: 'FETCH_SEARCHED_PRODUCTS',
   FETCH_FILTER_PRODUCTS: 'FETCH_FILTER_PRODUCTS',
   FETCH_PRODUCT: 'FETCH_PRODUCT',
   FETCH_IMAGE: 'FETCH_IMAGE',
@@ -16,9 +17,17 @@ export const fetchProducts = () => {
   };
 };
 
-export const fetchFilteredProducts = query => {
+export const fetchSearchedProducts = query => {
   return async function(dispatch) {
     const response = await turing.get(`/products/search?query_string=${query}`);
+
+    dispatch({ type: types.FETCH_SEARCHED_PRODUCTS, payload: response.data.rows });
+  };
+};
+
+export const fetchFilteredProducts = id => {
+  return async function(dispatch) {
+    const response = await turing.get(`/products/inCategory/${id}`);
     dispatch({ type: types.FETCH_FILTER_PRODUCTS, payload: response.data.rows });
   };
 };

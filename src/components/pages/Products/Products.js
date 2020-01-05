@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../actions/';
 import { fetchFilteredProducts } from '../../../actions/';
+import { fetchSearchedProducts } from '../../../actions/';
+import { fetchCategories } from '../../../actions/';
 
 import ProductCard from '../../ProductCard/ProductCard';
 import './products.scss';
@@ -10,6 +12,7 @@ export class Products extends Component {
 
   componentDidMount() {
     this.props.fetchProducts();
+    this.props.fetchCategories();
   }
 
   renderProductsList() {
@@ -26,13 +29,25 @@ export class Products extends Component {
     }
   }
 
+  renderCategoriesSelect() {
+    return this.props.categories.map(category => (
+      <option key={category.category_id} value={category.category_id}>
+        {category.name}
+      </option>
+    ));
+  }
+
   onSearchProduct(e) {
     e.preventDefault();
     if (this.inputRef.current.value === '') {
       this.props.fetchProducts();
     } else {
-      this.props.fetchFilteredProducts(this.inputRef.current.value);
+      this.props.fetchSearchedProducts(this.inputRef.current.value);
     }
+  }
+
+  onChangeCategorieFilter(e) {
+    this.props.fetchFilteredProducts(e.target.value);
   }
 
   render() {
@@ -42,7 +57,7 @@ export class Products extends Component {
           <h1>Our Signature Products:</h1>
         </div>
         <div className='search-bar'>
-          <form action='' className='' onSubmit={e => this.onSearchProduct(e)}>
+          <form action='' className='filter-search-form' onSubmit={e => this.onSearchProduct(e)}>
             <div className='glass'>&#8981;</div>
             <input
               ref={this.inputRef}
@@ -51,6 +66,17 @@ export class Products extends Component {
               placeholder='Search'
               // onChange={e => this.setState({ term: e.target.value })}
             />
+            <select
+              name='categories'
+              className='filter-categories'
+              id=''
+              onChange={e => {
+                this.onChangeCategorieFilter(e);
+              }}
+            >
+              <option value=''>Filter by category</option>
+              {this.renderCategoriesSelect()}
+            </select>
           </form>
         </div>
         <div className='products-content'>{this.renderProductsList()}</div>
@@ -59,7 +85,12 @@ export class Products extends Component {
   }
 }
 const mapStateToProps = state => {
-  return { products: state.products.list };
+  return { products: state.products.list, categories: state.categories };
 };
 
-export default connect(mapStateToProps, { fetchProducts, fetchFilteredProducts })(Products);
+export default connect(mapStateToProps, {
+  fetchProducts,
+  fetchSearchedProducts,
+  fetchFilteredProducts,
+  fetchCategories,
+})(Products);
