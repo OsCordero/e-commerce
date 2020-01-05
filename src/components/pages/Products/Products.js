@@ -47,7 +47,9 @@ export class Products extends Component {
   }
 
   onChangeCategorieFilter(e) {
-    this.props.fetchFilteredProducts(e.target.value);
+    if (e.target.value !== '') {
+      this.props.fetchFilteredProducts(e.target.value);
+    }
   }
 
   render() {
