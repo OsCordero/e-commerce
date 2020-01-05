@@ -3,10 +3,9 @@ import { formatDate } from '../../helpers/dateFormatHandler';
 import './review.scss';
 
 function getFormatedDate(created_on) {
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  const newDate = new Date(created_on);
-  return newDate.toLocaleString();
+  return formatDate(created_on);
 }
+
 const Review = props => {
   const { review, name, created_on } = props.review;
   return (
