@@ -17,6 +17,21 @@
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.32), 0 1px 4px rgba(0, 0, 0, 0.24);
 }
+
+@media only screen and (max-width: 568px) {
+  .login-card {
+    max-width: 300px;
+    padding: 20px 50px;
+  }
+  .login-input {
+    width: 200px;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .login-input {
+    width: 150px;
+  }
+}
 .login-form {
   display: grid;
   row-gap: 35px;
