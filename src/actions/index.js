@@ -47,6 +47,7 @@ export const fetchProductReviews = id => {
     dispatch({ type: types.FETCH_PRODUCT_REVIEWS, payload: response.data.splice(0, 10) });
   };
 };
+
 export const fetchCategories = () => {
   return async function(dispatch) {
     const response = await turing.get('/categories');
