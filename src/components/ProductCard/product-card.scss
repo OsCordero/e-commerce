@@ -19,16 +19,22 @@
 }
 .description {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 10px;
+  color: #333;
 }
 
 .product-card-body {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.thumbnail {
+  margin-bottom: 10px;
 }
 .product-card-footer {
   display: flex;
@@ -37,6 +43,7 @@
 }
 .prices {
   align-self: flex-end;
+  margin-top: 0;
 }
 
 .old-price {

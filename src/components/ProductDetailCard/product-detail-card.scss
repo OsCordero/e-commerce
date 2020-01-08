@@ -25,6 +25,26 @@
   }
 }
 
-.prices {
-  margin-top: 20px;
+.buttons {
+  display: flex;
+}
+.quantity-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  button {
+    background-color: #c7c6c6;
+    color: #333;
+    width: 30px;
+    height: 30px;
+    line-height: 10px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: x-large;
+  }
+  label {
+    color: #333;
+    font-size: 25px;
+  }
 }

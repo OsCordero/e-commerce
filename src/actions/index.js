@@ -8,6 +8,12 @@ export const types = {
   FETCH_PRODUCT: 'FETCH_PRODUCT',
   FETCH_IMAGE: 'FETCH_IMAGE',
   FETCH_PRODUCT_REVIEWS: 'FETCH_PRODUCT_REVIEWS',
+  SIGN_IN: 'SIGN_IN',
+  SIGN_OUT: 'SIGN_OUT',
+  CREATE_CART: 'CREATE_CART',
+  ADD_PRODUCT_TO_CART: 'ADD_PRODUCT_TO_CART',
+  START_ADD_PRODUCT_TO_CART: 'START_ADD_PRODUCT_TO_CART',
+  FETCH_CART: 'FETCH_CART',
 };
 
 export const fetchProducts = () => {
@@ -34,9 +40,9 @@ export const fetchFilteredProducts = id => {
 
 export const fetchProduct = id => {
   return async function(dispatch) {
-    const response = await turing.get(`/products/${id}`);
+    const response = await turing.get(`/products/${id}/details`);
 
-    dispatch({ type: types.FETCH_PRODUCT, payload: response.data });
+    dispatch({ type: types.FETCH_PRODUCT, payload: response.data[0] });
   };
 };
 
@@ -52,5 +58,55 @@ export const fetchCategories = () => {
   return async function(dispatch) {
     const response = await turing.get('/categories');
     dispatch({ type: types.FETCH_CATEGORIES, payload: response.data.rows });
+  };
+};
+
+export const signIn = userId => {
+  return {
+    type: types.SIGN_IN,
+    payload: userId,
+  };
+};
+
+export const signOut = () => {
+  return {
+    type: types.SIGN_OUT,
+  };
+};
+
+export const createCart = () => {
+  return async function(dispatch) {
+    const response = await turing.get('/shoppingcart/generateUniqueId');
+    dispatch({ type: types.CREATE_CART, payload: response.data.cart_id });
+  };
+};
+
+export const addProductToCart = (cart_id, product_id, quantity) => {
+  return async function(dispatch) {
+    dispatch({ type: types.START_ADD_PRODUCT_TO_CART });
+    const attributes = 'size';
+    for (let i = 0; i < quantity; i++) {
+      try {
+        await turing.post('/shoppingcart/add', {
+          cart_id: cart_id,
+          product_id: product_id,
+          attributes: attributes,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    const response = await turing.get(`/shoppingcart/${cart_id}`);
+
+    dispatch({ type: types.ADD_PRODUCT_TO_CART, payload: response.data.length });
+    dispatch({ type: types.FETCH_CART, payload: response.data });
+  };
+};
+
+export const fetchCart = cart_id => {
+  return async function(dispatch) {
+    const response = await turing.get(`/shoppingCart/${cart_id}`);
+
+    dispatch({ type: types.FETCH_CART, payload: response.data });
   };
 };

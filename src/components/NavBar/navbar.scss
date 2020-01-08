@@ -1,4 +1,5 @@
 .nav-bar {
+  display: flex;
   width: 100%;
   list-style-type: none;
   background-color: #333;
@@ -41,4 +42,24 @@
     width: 90%;
     margin-left: 5%;
   }
+}
+
+.cart-button {
+  font-size: 30px;
+}
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  border-radius: 9px;
+}
+
+#lblCartCount {
+  font-size: 15px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+  margin-top: -20px;
 }

@@ -24,7 +24,12 @@ export class ProductDetail extends Component {
     return (
       <div className='product-detail'>
         <div className='product-resume'>
-          <ProductDetailCard product={product} />
+          <ProductDetailCard
+            product={product}
+            price={
+              parseFloat(product.discounted_price) > 0 ? product.discounted_price : product.price
+            }
+          />
         </div>
         <div className='product-reviews'>{this.renderReviewsList()}</div>
       </div>

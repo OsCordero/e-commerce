@@ -19,20 +19,24 @@ function renderPrices(discounted_price, price) {
   }
 }
 const ProductCard = props => {
-  const { product_id, name, description, price, discounted_price } = props.product;
+  const { product_id, name, description, price, discounted_price, thumbnail } = props.product;
   return (
     <div className='product-card'>
       <h1 className='product-name'>{name}</h1>
       <div className='product-card-body'>
-        <p className='description'>{description}</p>
-        <div className='product-card-footer'>
-          {renderPrices(discounted_price, price)}
+        <img src={`${process.env.REACT_APP_IMAGE_URL}${thumbnail}`} alt='' className='thumbnail' />
 
-          <div className='buttons'>
-            <Link to={`/product/${product_id}`} className='btn primary'>
-              Details
-            </Link>
-          </div>
+        <Link to={`/product/${product_id}`}>
+          <div className='description'>{description}</div>
+        </Link>
+      </div>
+      <div className='product-card-footer'>
+        {renderPrices(discounted_price, price)}
+
+        <div className='buttons'>
+          <Link to={`/product/${product_id}`} className='btn primary'>
+            Details
+          </Link>
         </div>
       </div>
     </div>
