@@ -26,7 +26,7 @@ const ProductCard = props => {
       <div className='product-card-body'>
         <img src={`${process.env.REACT_APP_IMAGE_URL}${thumbnail}`} alt='' className='thumbnail' />
 
-        <Link to={`/product/${product_id}`}>
+        <Link to={`/product/${product_id}`} style={{ textDecoration: 'none' }}>
           <div className='description'>{description}</div>
         </Link>
       </div>

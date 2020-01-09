@@ -6,6 +6,7 @@ import { fetchProductReviews } from '../../../actions/';
 import ProductDetailCard from '../../ProductDetailCard/ProductDetailCard';
 import Review from '../../Review/Review';
 import './product-detail.scss';
+import Spinner from './../../Spinner/Spinner';
 
 export class ProductDetail extends Component {
   componentDidMount() {
@@ -19,10 +20,11 @@ export class ProductDetail extends Component {
     });
   }
   render() {
-    const { product } = this.props;
+    const { product, loading } = this.props;
 
     return (
       <div className='product-detail'>
+        {loading && <Spinner />}
         <div className='product-resume'>
           <ProductDetailCard
             product={product}
@@ -38,7 +40,11 @@ export class ProductDetail extends Component {
 }
 
 const mapStateToProps = state => {
-  return { product: state.products.selected, reviews: state.products.selectedReviews };
+  return {
+    product: state.products.selected,
+    reviews: state.products.selectedReviews,
+    loading: state.cart.addingProducts,
+  };
 };
 
 export default connect(mapStateToProps, { fetchProduct, fetchProductReviews })(ProductDetail);

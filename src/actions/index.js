@@ -14,6 +14,10 @@ export const types = {
   ADD_PRODUCT_TO_CART: 'ADD_PRODUCT_TO_CART',
   START_ADD_PRODUCT_TO_CART: 'START_ADD_PRODUCT_TO_CART',
   FETCH_CART: 'FETCH_CART',
+  REMOVE_PRODUCT_FROM_CART: 'REMOVE_PRODUCT_FROM_CART',
+  REMOVE_PRODUCT_FROM_CART_SUCEDEED: 'REMOVE_PRODUCT_FROM_CART_SUCEDEED',
+  EMPTY_CART: 'EMPTY_CART',
+  FETCH_TOTAL_AMOUNT: 'FETCH_TOTAL_AMOUNT',
 };
 
 export const fetchProducts = () => {
@@ -51,6 +55,16 @@ export const fetchProductReviews = id => {
     const response = await turing.get(`/products/${id}/reviews`);
 
     dispatch({ type: types.FETCH_PRODUCT_REVIEWS, payload: response.data.splice(0, 10) });
+  };
+};
+
+export const removeProductFromCart = (item_id, cart_id) => {
+  return async function(dispatch) {
+    dispatch({ type: types.REMOVE_PRODUCT_FROM_CART });
+    await turing.delete(`/shoppingcart/removeProduct/${item_id}`);
+
+    dispatch({ type: types.REMOVE_PRODUCT_FROM_CART_SUCEDEED });
+    dispatch(fetchCart(cart_id));
   };
 };
 
@@ -105,8 +119,21 @@ export const addProductToCart = (cart_id, product_id, quantity) => {
 
 export const fetchCart = cart_id => {
   return async function(dispatch) {
-    const response = await turing.get(`/shoppingCart/${cart_id}`);
-
+    const response = await turing.get(`/shoppingcart/${cart_id}`);
     dispatch({ type: types.FETCH_CART, payload: response.data });
+    dispatch(fetchTotalAmount(cart_id));
   };
+};
+
+export const fetchTotalAmount = cart_id => {
+  return async function(dispatch) {
+    const response = await turing.get(`/shoppingcart/totalAmount/${cart_id}`);
+    dispatch({ type: types.FETCH_TOTAL_AMOUNT, payload: response.data });
+  };
+};
+export const emptyCart = cart_id => async dispatch => {
+  const response = await turing.delete(`/shoppingcart/empty/${cart_id}`);
+
+  dispatch({ type: types.EMPTY_CART, payload: response.data });
+  dispatch(fetchCart(cart_id));
 };

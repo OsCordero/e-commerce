@@ -1,0 +1,32 @@
+.modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #3b3b3b, $alpha: 0.5);
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+}
+.modal.display-none {
+  display: none;
+}
+
+.modal-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+.content {
+  margin-top: 15px;
+}
+.actions {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row-reverse;
+  button {
+    color: #333;
+    border: 1px solid #333;
+    font-size: large;
+  }
+}
