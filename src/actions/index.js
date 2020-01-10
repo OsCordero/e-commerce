@@ -18,6 +18,7 @@ export const types = {
   REMOVE_PRODUCT_FROM_CART_SUCEDEED: 'REMOVE_PRODUCT_FROM_CART_SUCEDEED',
   EMPTY_CART: 'EMPTY_CART',
   FETCH_TOTAL_AMOUNT: 'FETCH_TOTAL_AMOUNT',
+  FETCH_TAXES: 'FETCH_TAXES',
 };
 
 export const fetchProducts = () => {
@@ -117,6 +118,23 @@ export const addProductToCart = (cart_id, product_id, quantity) => {
   };
 };
 
+export const updateProductInCart = (cart_id, item_id, quantity) => {
+  return async function(dispatch) {
+    dispatch({ type: types.START_ADD_PRODUCT_TO_CART });
+    try {
+      await turing.put(`/shoppingcart/update/${item_id}`, {
+        quantity: quantity,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    const response = await turing.get(`/shoppingcart/${cart_id}`);
+
+    dispatch({ type: types.ADD_PRODUCT_TO_CART, payload: response.data.length });
+    dispatch({ type: types.FETCH_CART, payload: response.data });
+  };
+};
+
 export const fetchCart = cart_id => {
   return async function(dispatch) {
     const response = await turing.get(`/shoppingcart/${cart_id}`);
@@ -128,7 +146,7 @@ export const fetchCart = cart_id => {
 export const fetchTotalAmount = cart_id => {
   return async function(dispatch) {
     const response = await turing.get(`/shoppingcart/totalAmount/${cart_id}`);
-    dispatch({ type: types.FETCH_TOTAL_AMOUNT, payload: response.data });
+    dispatch({ type: types.FETCH_TOTAL_AMOUNT, payload: response.data.total_amount });
   };
 };
 export const emptyCart = cart_id => async dispatch => {

@@ -1,0 +1,44 @@
+.summary {
+  background-color: white;
+  border-radius: 10px;
+  padding-bottom: 10px;
+  max-height: 220px;
+  .summary-order-now {
+    margin-top: 10px;
+  }
+  .btn-order {
+    background-color: rgb(98, 206, 107);
+    width: 100%;
+  }
+  .btn-order.disabled {
+    background-color: rgb(163, 163, 163);
+    width: 100%;
+  }
+  .summary-detail {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 15px;
+    display: grid;
+    row-gap: 10px;
+    .sub-total,
+    .shipping,
+    .taxes,
+    .total {
+      display: flex;
+      justify-content: space-between;
+      color: #333;
+    }
+
+    .total {
+      font-size: x-large;
+      color: black;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  }
+}
+.btn.confirm-order {
+  background-color: rgb(98, 206, 107);
+  color: white;
+  border: none;
+}

@@ -1,6 +1,7 @@
+import { types } from '../actions';
 export default (state = [], action) => {
   switch (action.type) {
-    case 'FETCH_CATEGORIES':
+    case types.FETCH_CATEGORIES:
       return action.payload;
     default:
       return state;

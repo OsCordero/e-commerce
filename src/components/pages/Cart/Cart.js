@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import { fetchCart, removeProductFromCart, emptyCart } from '../../../actions';
-import createHistory from 'history/createBrowserHistory';
 import './cart.scss';
 import ProductDetailCard from './../../ProductDetailCard/ProductDetailCard';
 import { Modal } from '../../Modal/Modal';
 import Spinner from './../../Spinner/Spinner';
-
+import { Summary } from './../../Summary/Summary';
+import turing from '../../../apis/turing';
 export class Cart extends Component {
-  state = { modal: { show: false, type: '' }, selectedItem: '' };
-  componentDidMount() {
+  state = { modal: { show: false, type: '' }, selectedItem: '', taxes: [] };
+  async componentDidMount() {
     this.props.fetchCart(this.props.cart_id);
+    const response = await turing.get('/tax');
+    this.setState({ taxes: response.data });
   }
 
   renderProducts(products) {
@@ -23,25 +27,49 @@ export class Cart extends Component {
             parseFloat(product.discounted_price) > 0 ? product.discounted_price : product.price
           }
         />
-
-        <label className='container-check'>
-          <input type='checkbox' />
-          <span className='checkmark'></span>
-        </label>
-        <button
-          className='delete btn'
-          value={product.product_id}
-          onClick={() =>
-            this.setState({
-              modal: { show: true, type: 'item' },
-              selectedItem: product.item_id,
-            })
-          }
-        >
-          <i className='fas fa-trash-alt'></i>
-        </button>
+        <div className='cart-row-actions'>
+          <button
+            className='delete btn'
+            value={product.product_id}
+            onClick={() =>
+              this.setState({
+                modal: { show: true, type: 'item' },
+                selectedItem: product.item_id,
+              })
+            }
+          >
+            <i className='fas fa-trash-alt'></i>
+          </button>
+        </div>
       </div>
     ));
+  }
+  renderModal(cart_id) {
+    const actions = (
+      <React.Fragment>
+        <button
+          className='btn delete-item'
+          onClick={() =>
+            this.state.modal.type === 'item'
+              ? this.onClickdeleteProduct(cart_id)
+              : this.onClickEmptyCart(cart_id)
+          }
+        >
+          Delete
+        </button>
+        <button className='btn' onClick={() => this.setState({ modal: { show: false } })}>
+          Cancel
+        </button>
+      </React.Fragment>
+    );
+    return (
+      <Modal
+        actions={actions}
+        show={this.state.modal.show}
+        title='Delete product'
+        content='This action will remove this item from your shopping cart.'
+      />
+    );
   }
 
   onClickdeleteProduct = cart_id => {
@@ -55,33 +83,11 @@ export class Cart extends Component {
     this.setState({ modal: { show: false } });
   };
 
-  renderModal() {}
   render() {
-    const { loading, loadingDel, cart_id, products, count } = this.props;
+    const { loading, loadingDel, cart_id, products, count, subTotal } = this.props;
     return (
       <div className='cart'>
-        <Modal
-          actions={
-            <React.Fragment>
-              <button
-                className='btn delete-item'
-                onClick={() =>
-                  this.state.modal.type === 'item'
-                    ? this.onClickdeleteProduct(cart_id)
-                    : this.onClickEmptyCart(cart_id)
-                }
-              >
-                Delete
-              </button>
-              <button className='btn' onClick={() => this.setState({ modal: { show: false } })}>
-                Cancel
-              </button>
-            </React.Fragment>
-          }
-          show={this.state.modal.show}
-          title='Delete product'
-          content='This action will remove this item from your shopping cart.'
-        />
+        {this.renderModal(cart_id)}
         {(loading || loadingDel) && <Spinner />}
         <div className='cart-card'>
           <div className='header'>
@@ -94,14 +100,23 @@ export class Cart extends Component {
             </button>
           </div>
           <div className='cart-body'>
-            <div className='cart-products-list'>{this.renderProducts(products)}</div>
+            {count > 0 ? (
+              <div className='cart-products-list'>{this.renderProducts(products)}</div>
+            ) : (
+              <div className='empty-cart'>
+                <h1 className='empty-cart-header'>Nothing here</h1>
+                <Link
+                  to='/products'
+                  className='home-to-products'
+                  style={{ textDecoration: 'none' }}
+                >
+                  Add Some Products!
+                </Link>
+              </div>
+            )}
           </div>
         </div>
-        <div className='summary'>
-          <div className='header'>
-            <h1>Order Summary</h1>
-          </div>
-        </div>
+        <Summary taxes={this.state.taxes} subTotal={subTotal} itemsCount={count} />
       </div>
     );
   }
@@ -113,7 +128,11 @@ const mapStateToProps = state => {
     products: state.cart.items,
     loading: state.cart.addingProducts,
     loadingDel: state.cart.removingProducts,
-    total: state.cart.totalAmount,
+    subTotal: state.cart.totalAmount,
   };
 };
-export default connect(mapStateToProps, { fetchCart, removeProductFromCart, emptyCart })(Cart);
+export default connect(mapStateToProps, {
+  fetchCart,
+  removeProductFromCart,
+  emptyCart,
+})(Cart);

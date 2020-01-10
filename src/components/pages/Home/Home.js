@@ -1,14 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './home.scss';
 const Home = () => {
   return (
-    <div className='home'>
-      <h1 className='home-header'>Welcome to Home Page!</h1>
-      <img
-        className='home-image'
-        src='https://cdn.pixabay.com/photo/2018/01/14/23/05/visa-3082813_960_720.jpg'
-        alt=''
-      />
+    <div className='home-container'>
+      <div className='home'>
+        <h1 className='home-head'>Applaudo Clothing Store</h1>
+        <p className='home-subhead'>Best Place to Dress</p>
+        <p className='start-button'>
+          <Link to='/products' className='home-to-products' style={{ textDecoration: 'none' }}>
+            See Products
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

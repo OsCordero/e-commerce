@@ -3,7 +3,7 @@ import React from 'react';
 import { addProductToCart } from '../../actions';
 import './product-detail-card.scss';
 import { connect } from 'react-redux';
-import { fetchCart } from './../../actions/index';
+import { fetchCart, updateProductInCart } from './../../actions/index';
 
 class ProductDetailCard extends React.Component {
   state = { quantity: 0, price: 0.0, total: 0.0 };
@@ -17,21 +17,37 @@ class ProductDetailCard extends React.Component {
   }
 
   onAddToCartClick = (cart_id, product_id, quantity) => {
-    this.props.addProductToCart(cart_id, product_id, quantity);
+    let newItem = true;
+    let itemId = '';
+    const { items } = this.props;
+
+    for (let key in items) {
+      if (product_id === items[key].product_id) {
+        newItem = false;
+        itemId = items[key].item_id;
+        break;
+      } else newItem = true;
+    }
+
+    if (newItem) {
+      this.props.addProductToCart(cart_id, product_id, quantity);
+    } else {
+      this.props.updateProductInCart(cart_id, itemId, quantity);
+    }
   };
 
   renderPrices(discounted_price, price) {
     if (parseFloat(discounted_price) > 0) {
       return (
         <div className='prices'>
-          <p className='old-price'>${price}</p>
-          <p className='discount-price'>US ${discounted_price}</p>
+          <div className='discount-price'>US ${discounted_price}</div>
+          <div className='old-price'>${price}</div>
         </div>
       );
     } else {
       return (
         <div className='prices'>
-          <p className='discount-price'>US ${price}</p>
+          <div className='discount-price'>US ${price}</div>
         </div>
       );
     }
@@ -71,9 +87,12 @@ class ProductDetailCard extends React.Component {
         <div className='product-detail-content'>
           <div className='product-detail-card-body'>
             <img src={`${process.env.REACT_APP_IMAGE_URL}${image}`} alt='' className='thumbnail' />
-            <p>{description}</p>
           </div>
+
           <div className='product-card-footer'>
+            <div className='description'>
+              <p>{description}</p>
+            </div>
             {this.renderPrices(discounted_price, price)}
             <div className='total'>Total: {this.state.total}</div>
             <div className='buttons'>
@@ -96,6 +115,12 @@ class ProductDetailCard extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { cart_id: state.cart.cart_id, loading: state.cart.addingProducts };
+  return {
+    cart_id: state.cart.cart_id,
+    loading: state.cart.addingProducts,
+    items: state.cart.items,
+  };
 };
-export default connect(mapStateToProps, { addProductToCart, fetchCart })(ProductDetailCard);
+export default connect(mapStateToProps, { addProductToCart, fetchCart, updateProductInCart })(
+  ProductDetailCard
+);

@@ -10,7 +10,7 @@ class NavBar extends React.Component {
       <nav className='nav-bar '>
         {this.props.isSignedIn && (
           <div className='cart-button'>
-            <Link to='/cart' className='item' onClick={this.onCartClick}>
+            <Link to='/cart' className='item'>
               <i className='fa fa-shopping-cart'></i>
               <span className='badge badge-warning' id='lblCartCount'>
                 {this.props.itemsCount}
