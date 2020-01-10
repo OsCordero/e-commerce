@@ -1,0 +1,21 @@
+.not-found {
+  display: flex;
+  align-items: center;
+  height: 90vh;
+  justify-content: center;
+  align-self: center;
+  .not-found-message {
+    font-size: 50px;
+    margin: auto;
+  }
+  .home-to-products {
+    font-size: 30px;
+    align-self: center;
+    justify-self: center;
+    padding: 0px 10px;
+  }
+
+  .sub-title {
+    font-size: 30px;
+  }
+}

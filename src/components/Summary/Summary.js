@@ -65,7 +65,7 @@ export class Summary extends Component {
           </div>
           <div className='total'>
             <p>Total:</p>
-            <p>US ${this.calculateTaxes()}</p>
+            <p>US ${parseFloat(this.props.subTotal) + parseFloat(this.calculateTaxes())}</p>
           </div>
         </div>
         <div className='summary-order-now'>

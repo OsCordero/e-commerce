@@ -40,7 +40,19 @@
 @media only screen and (max-width: 568px) {
   .nav-bar-items-list {
     width: 90%;
+    padding: 0 5px;
     margin-left: 5%;
+
+    font-size: 15px;
+  }
+  .navbar {
+    justify-content: center;
+  }
+  .cart-button {
+    margin-left: 10px;
+  }
+  .nav-bar a {
+    padding: 0;
   }
 }
 

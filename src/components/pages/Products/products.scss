@@ -32,6 +32,9 @@
   .products-list {
     grid-template-columns: auto;
   }
+  .filter-categories {
+    margin-top: 10px;
+  }
 }
 .product-card:nth-child(4n + 1):nth-last-child(-n + 4),
 .product-card:nth-child(4n + 1):nth-last-child(-n + 4) ~ .product-card {
