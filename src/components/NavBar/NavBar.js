@@ -6,14 +6,15 @@ import './navbar.scss';
 import GoogleAuth from './../GoogleAuth/GoogleAuth';
 class NavBar extends React.Component {
   render() {
+    const { isSignedIn, itemsCount } = this.props;
     return (
       <nav className='nav-bar '>
-        {this.props.isSignedIn && (
+        {isSignedIn && (
           <div className='cart-button'>
             <Link to='/cart' className='item'>
               <i className='fa fa-shopping-cart'></i>
               <span className='badge badge-warning' id='lblCartCount'>
-                {this.props.itemsCount}
+                {itemsCount}
               </span>
             </Link>
           </div>

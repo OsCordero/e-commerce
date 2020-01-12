@@ -16,6 +16,7 @@ export class Summary extends Component {
   }
 
   render() {
+    const { subTotal, itemsCount } = this.props;
     return (
       <div className='summary'>
         <Modal
@@ -53,7 +54,7 @@ export class Summary extends Component {
         <div className='summary-detail'>
           <div className='sub-total'>
             <p>SubTotal:</p>
-            <p>US ${this.props.subTotal}</p>
+            <p>US ${subTotal}</p>
           </div>
           <div className='shipping'>
             <p>Shipping to El Salvador:</p>
@@ -63,13 +64,22 @@ export class Summary extends Component {
             <p>Taxes:</p>
             <p>US ${this.calculateTaxes()}</p>
           </div>
+          <div className='taxes'>
+            <p>Delivery:</p>
+            <p>15-30 days</p>
+          </div>
           <div className='total'>
             <p>Total:</p>
-            <p>US ${parseFloat(this.props.subTotal) + parseFloat(this.calculateTaxes())}</p>
+            <p>
+              US $
+              {itemsCount > 0
+                ? `${parseFloat(subTotal) + parseFloat(this.calculateTaxes())}`
+                : '0.00'}
+            </p>
           </div>
         </div>
         <div className='summary-order-now'>
-          {this.props.itemsCount > 0 ? (
+          {itemsCount > 0 ? (
             <button
               className='btn btn-order'
               onClick={() => this.setState({ showConfirmModal: true })}
@@ -78,7 +88,7 @@ export class Summary extends Component {
             </button>
           ) : (
             <button className='btn btn-order disabled' disabled={true}>
-              You don't have any product in your cart!
+              {"You don't have any product in your cart!"}
             </button>
           )}
         </div>

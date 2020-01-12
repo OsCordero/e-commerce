@@ -20,6 +20,8 @@ export default (state = initState, action) => {
       return { ...state, addingProducts: true };
     case types.ADD_PRODUCT_TO_CART:
       return { ...state, count: action.payload, addingProducts: false };
+    case types.ADD_PRODUCT_TO_CART_FAILED:
+      return { ...state, addingProducts: false };
     case types.REMOVE_PRODUCT_FROM_CART:
       return { ...state, removingProducts: true };
     case types.REMOVE_PRODUCT_FROM_CART_SUCEDEED:

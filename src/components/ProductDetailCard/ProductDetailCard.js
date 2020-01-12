@@ -81,6 +81,7 @@ class ProductDetailCard extends React.Component {
 
   render() {
     const { name, description, price, discounted_price, product_id, image } = this.props.product;
+
     return (
       <div className='product-detail-card'>
         <div className='product-detail-card-header'>{name}</div>
@@ -95,18 +96,20 @@ class ProductDetailCard extends React.Component {
             </div>
             {this.renderPrices(discounted_price, price)}
             <div className='total'>Total: {this.state.total}</div>
-            <div className='buttons'>
-              <div className='quantity-buttons'>
-                <button onClick={() => this.onQuantityClick('sub')} className='btn'>
-                  -
-                </button>
-                <label>{this.state.quantity}</label>
-                <button onClick={() => this.onQuantityClick('add')} className='btn'>
-                  +
-                </button>
+            {this.props.isSignedIn && (
+              <div className='buttons'>
+                <div className='quantity-buttons'>
+                  <button onClick={() => this.onQuantityClick('sub')} className='btn'>
+                    -
+                  </button>
+                  <label>{this.state.quantity}</label>
+                  <button onClick={() => this.onQuantityClick('add')} className='btn'>
+                    +
+                  </button>
+                </div>
+                {this.renderAddButton(product_id)}
               </div>
-              {this.renderAddButton(product_id)}
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -119,6 +122,7 @@ const mapStateToProps = state => {
     cart_id: state.cart.cart_id,
     loading: state.cart.addingProducts,
     items: state.cart.items,
+    isSignedIn: state.auth.isSignedIn,
   };
 };
 export default connect(mapStateToProps, { addProductToCart, fetchCart, updateProductInCart })(

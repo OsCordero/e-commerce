@@ -13,6 +13,7 @@ export const types = {
   CREATE_CART: 'CREATE_CART',
   ADD_PRODUCT_TO_CART: 'ADD_PRODUCT_TO_CART',
   START_ADD_PRODUCT_TO_CART: 'START_ADD_PRODUCT_TO_CART',
+  ADD_PRODUCT_TO_CART_FAILED: 'ADD_PRODUCT_TO_CART_FAILED',
   FETCH_CART: 'FETCH_CART',
   REMOVE_PRODUCT_FROM_CART: 'REMOVE_PRODUCT_FROM_CART',
   REMOVE_PRODUCT_FROM_CART_SUCEDEED: 'REMOVE_PRODUCT_FROM_CART_SUCEDEED',
@@ -108,7 +109,7 @@ export const addProductToCart = (cart_id, product_id, quantity) => {
           attributes: attributes,
         });
       } catch (err) {
-        console.log(err);
+        dispatch({ type: types.ADD_PRODUCT_TO_CART_FAILED });
       }
     }
     const response = await turing.get(`/shoppingcart/${cart_id}`);
@@ -126,7 +127,7 @@ export const updateProductInCart = (cart_id, item_id, quantity) => {
         quantity: quantity,
       });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: types.ADD_PRODUCT_TO_CART_FAILED });
     }
     const response = await turing.get(`/shoppingcart/${cart_id}`);
 
