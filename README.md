@@ -4,7 +4,7 @@ https://applaudo-ecommerce.herokuapp.com/
 
 ## SEE V2 LIVE DEMO HERE:
 
-httpS://applaudo-ecommerce-v2.herokuapp.com/
+https://applaudo-ecommerce-v2.herokuapp.com/
 
 
 # RUN THE PROJECT:
