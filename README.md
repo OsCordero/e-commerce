@@ -2,6 +2,20 @@
 
 https://applaudo-ecommerce.herokuapp.com/
 
+## SEE V2 LIVE DEMO HERE:
+
+httpS://applaudo-ecommerce-v2.herokuapp.com/
+
+
+# RUN THE PROJECT:
+
+## DEV MODE:
+`npm run dev`
+
+## PRODUCTION MODE MODE:
+`npm start`
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
